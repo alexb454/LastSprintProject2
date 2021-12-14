@@ -1,56 +1,93 @@
-import org.w3c.dom.Node;
-
 public class BST {
-    private int info;
-    private Node left;
-    private Node right;
 
-    public static class Binary {
+    public static class Node {
         int info;
         Node left;
         Node right;
-    }
 
-    public void Binary(int info){
-        this.info = info;
-        this.left = null;
-        this.right = null;
+        public Node(int info) {
+            this.info = info;
+            this.left = null;
+            this.right = null;
+        }
     }
 
     public Node root;
 
-    public BST(){
+    public BST() {
         root = null;
     }
 
-    public void inserted(int info){
-        root = insertRec(root, info);
-    }
+    public void insert(int data) {
+        Node newNode = new Node(data);
+        if (root == null) {
+            root = newNode;
+            return;
+        } else {
+            Node current = root, parent = null;
 
-    private Node insertRec(Node root, int info) {
-        if (root == null)
-        {
-            root = new Node(info);
+            while (true) {
+                parent = current;
+                if (data < current.info) {
+                    current = current.left;
+                    if (current == null) {
+                        parent.left = newNode;
+                        return;
+                    }
+                }
+                else {
+                    current = current.right;
+                    if (current == null) {
+                        parent.right = newNode;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    public Node minNode(Node root) {
+        if (root.left != null)
+            return minNode(root.left);
+        else
             return root;
+    }
+    public Node deleteNode(Node node, int value) {
+        if (node == null) {
+            return null;
+        } else {
+            if (value < node.info)
+                node.left = deleteNode(node.left, value);
+            else if (value > node.info)
+                node.right = deleteNode(node.right, value);
+            else {
+                if (node.left == null && node.right == null)
+                    node = null;
+                else if (node.left == null) {
+                    node = node.right;
+                }
+                else if (node.right == null) {
+                    node = node.left;
+                }
+                else {
+                    Node temp = minNode(node.right);
+                    node.info = temp.info;
+                    node.right = deleteNode(node.right, temp.info);
+                }
+            }
+            return node;
         }
-        if (info < root.info)
-            this.left = insertRec(root.left, info);
-        else if (info > root.info)
-            this.right = insertRec(root.right, info);
+    }
+    public void inorderTraversal(Node node) {
+        if (root == null) {
+            System.out.println("The Tree is empty, my dude");
+            return;
+        } else {
+            if (node.left != null)
+                inorderTraversal(node.left);
+            System.out.print(node.info + " ");
+            if (node.right != null)
+                inorderTraversal(node.right);
 
-        return root;
-    }
-    public void inOrder()
-    {
-        inOrderRec(root);
-    }
-    private void inOrderRec(Node root)
-    {
-        if (root != null) {
-            inOrderRec(root.left);
-            System.out.println(root.info);
-            inOrderRec(root.right);
         }
     }
-
 }

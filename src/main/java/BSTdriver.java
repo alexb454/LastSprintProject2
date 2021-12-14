@@ -1,13 +1,15 @@
 public class BSTdriver {
     public static void main(String[] args){
         BST tree = new BST();
-        tree.inserted(5);
-        tree.inserted(3);
-        tree.inserted(2);
-        tree.inserted(4);
-        tree.inserted(7);
-        tree.inserted(6);
-        tree.inserted(8);
-        tree.inOrder();
+        tree.insert(5);
+        tree.insert(10);
+        tree.insert(3);
+        tree.insert(2);
+        tree.insert(7);
+        tree.insert(6);
+        tree.insert(8);
+
+        System.out.println("Binary search tree with insertion in order:");
+        tree.inorderTraversal(tree.root);
     }
 }
