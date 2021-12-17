@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +7,8 @@
     <title>Numbers</title>
 </head>
 <body>
-    <form method="POST" action="/">
-        <label>Please submit a few comma seprated numbers, a tree will be supplied </label>
+    <form method="POST" action="#" th:action="@{/numbers}" th:object="${numbers}">
+        <label>Please submit a few comma separated numbers, a tree will be supplied </label>
         <input type="text" id="number" name="number" placeholder="EX.. 1,2,3">
         <button type="submit">Submit</button>
     </form>
